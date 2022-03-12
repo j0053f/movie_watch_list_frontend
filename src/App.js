@@ -1,42 +1,36 @@
-// import logo from "./logo.svg";
-// import './App.css';
-import { useEffect, useState } from "react";
-function App() {
-  const [username, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  useEffect(() => {
-    const _username = "yousef";
-    const _password = "password_hash";
+import SignUp from './SignUp'
+import SignIn from './SignIn'
+import Home from './Home'
+import React, { useState } from 'react'
 
-    fetch("/api/movielist/v1.1/yousef", {
-      headers: {
-        Authorization: "Basic " + window.btoa(`${_username}:${_password}`),
-      },
-    })
-      .then((response) => console.log(response))
-      .catch((e) => console.log(e));
-  }, []);
+import { Route, Routes, Link } from 'react-router-dom'
+
+const u = {
+  credentials: {},
+  setCredentials: () => {}
+}
+export const credentialsContext = React.createContext(u)
+function App () {
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
 
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <h1>{username ? `hello ${username}` : <LoginForm />}</h1>
-      <p></p>
+    <div>
+      <nav>
+        <Link to="/">Home</Link>|{'  '}
+        <Link to="/signin">Sign in</Link>|{'  '}
+        <Link to="/signup">Create an account</Link>
+      </nav>
+      <credentialsContext.Provider value={{ credentials, setCredentials }}>
+      <Routes>
+        <Route path="/">
+          <Route path="signup" element={<SignUp />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path='home' element ={<Home/>}/>
+        </Route>
+      </Routes>
+      </credentialsContext.Provider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
