@@ -1,6 +1,6 @@
 import { AuthContext } from "./Auth/AuthProvider";
 import { useContext, useEffect, useState } from "react";
-
+import ProgressSquare from "./ProgressSquare";
 export default function Home() {
   const [movies, setMovies] = useState({});
 
@@ -20,6 +20,18 @@ export default function Home() {
         setMovies(data);
       });
   }, []);
+
+  function renderMovieWatchList(i) {
+    const { name, current_season, current_episode, movie_info } = movies(i);
+    return (
+      <div>
+        <h1>{name}</h1>
+        {movie_info.map((item) => (
+          <ProgressSquare seasonNo={item[0]} episodeCount={item[1]} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
