@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { credentialsContext } from "./App";
+import { AuthContext } from "./Auth/AuthProvider";
 import { Link } from "react-router-dom";
 
 export default function FormAddMovie() {
-  const { username, password } = useContext(credentialsContext).credentials;
+  const { username, password } = useContext(AuthContext).credentials;
+
   const [movieName, setMovieName] = useState("");
   const [seasonEpisodeCount, setSeasonEpisodeCount] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);

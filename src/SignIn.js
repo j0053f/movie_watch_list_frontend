@@ -1,60 +1,51 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useContext, useEffect, useState } from 'react'
-import { credentialsContext } from './App'
-import Home from './Home'
-export default function SignIn () {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "./Auth/AuthProvider";
 
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+export default function SignIn() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const { credentials, setCredentials } = useContext(credentialsContext)
+  const { credentials, authError, signin, signout } = useContext(AuthContext);
 
-  console.log(isAuthenticated)
-  console.log(username)
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function handleChange (event) {
-    const { target } = event
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    if (target.name === 'username') setUsername(target.value)
-    if (target.name === 'password') setPassword(target.value)
+  function handleChange(event) {
+    const { target } = event;
+
+    if (target.name === "username") setUsername(target.value);
+    if (target.name === "password") setPassword(target.value);
   }
-  function handleSubmit (event) {
-    event.preventDefault()
-    setIsSubmitted(true)
+  function handleSubmit(event) {
+    event.preventDefault();
+    setIsSubmitted(true);
   }
-  useEffect(
-    () => {
-      if (isSubmitted) {
-        fetch('/api/movielist/v1.1/signin', {
-          headers: {
-            Authorization: `Basic ${window.btoa(`${username}:${password}`)}`
-          }
-        })
-          .then((response) => response.json())
-          .then(({ name, actual_status_code }) => {
-            console.log(name, actual_status_code)
-            if (name) {
-              setIsAuthenticated(true)
-              console.log(name)
-              setCredentials({ username: username, password: password })
-            } else {
-              setIsSubmitted(false)
-            }
-          })
-      }
-    },
-    [isSubmitted]
-  )
+  useEffect(() => {
+    if (isSubmitted) {
+      signin(username, password, () => {
+        navigate("/home", { replace: true });
+      });
+    }
+  }, [isSubmitted]);
 
-  if (credentials.username) {
-    return (
-<Home/>
-    )
-  } else {
-    console.log('context username ', credentials.username)
-    return (
+  useEffect(() => {
+    if (authError === 401) {
+      setIsSubmitted(false);
+    }
+  }, [authError]);
+
+  function render_error(authError) {
+    if (authError) {
+      return <div>username or password is wrong!</div>;
+    }
+    return;
+  }
+  return (
+    <div>
       <form onSubmit={handleSubmit}>
         <label>
           username:
@@ -77,6 +68,7 @@ export default function SignIn () {
         </label>
         <input type="submit" value="submit" />
       </form>
-    )
-  }
+      {render_error(authError)}
+    </div>
+  );
 }

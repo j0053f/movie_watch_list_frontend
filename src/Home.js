@@ -1,21 +1,29 @@
-import { credentialsContext } from "./App";
-import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { AuthContext } from "./Auth/AuthProvider";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
-  const { username, password } = useContext(credentialsContext).credentials;
+  const [movies, setMovies] = useState({});
+
+  const { username, password } = useContext(AuthContext).credentials;
+
   useEffect(() => {
+    console.log("home useEffect");
     fetch("/api/movielist/v1.1/getmovies", {
       headers: {
         Authorization: `Basic ${window.btoa(`${username}:${password}`)}`,
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
-  });
+      .then(({ data }) => {
+        console.log("movie watch list is", data);
+        window.data = data;
+        setMovies(data);
+      });
+  }, []);
+
   return (
-    <nav>
-      <Link to="/addmovie"> add movie</Link>
-    </nav>
+    <div>
+      <h1>this is home page</h1>
+    </div>
   );
 }
