@@ -14,6 +14,7 @@ export default function SignIn() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const from = location.state?.from?.pathname || "/home";
   function handleChange(event) {
     const { target } = event;
 
@@ -27,7 +28,7 @@ export default function SignIn() {
   useEffect(() => {
     if (isSubmitted) {
       signin(username, password, () => {
-        navigate("/home", { replace: true });
+        navigate(from, { replace: true });
       });
     }
   }, [isSubmitted]);
