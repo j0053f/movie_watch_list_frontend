@@ -1,98 +1,59 @@
 import "./MovieList.css";
-export default function MovieList({ movies, moviesLog }) {
-  console.log("moviesList - moviesLog:", moviesLog);
+import Episode from "./Episode";
+export default function MovieList({ state, handleWatched }) {
+  const { watchlist, watchlist_log } = state;
+  console.log(state);
+  const movies = Object.keys(watchlist).map((movie_id) => ({
+    ...watchlist[movie_id],
+    movie_id,
+  }));
+
+  const i = 2;
   return (
     <div className="movies-container">
       <Movie
-        movie_i={2}
-        movies={movies}
-        key={movies[0].movie_id}
-        moviesLog={moviesLog}
+        movie={movies[i]}
+        key={movies[i].movie_id}
+        movieLog={watchlist_log[movies[i].movie_id]}
+        handleWatched={handleWatched}
       />
     </div>
   );
 }
-function Movie({ movie_i, movies, moviesLog }) {
+function Movie({ movie, movieLog, handleWatched }) {
   return (
     <div className="seasons-container">
-      <h1>{movies[movie_i].name}</h1>
+      <h1>{movie.name}</h1>
 
-      {movies[movie_i].movie_info.map((item) => (
+      {movie.season_episode_details.map((item) => (
         <Season
-          movie_i={movie_i}
           season_i={item[0]}
-          movies={movies}
-          key={+(String(movies[movie_i].movie_id) + String(item[0]))}
-          moviesLog={moviesLog}
+          movie={movie}
+          key={+(String(movie.movie_id) + String(item[0]))}
+          movieLog={movieLog}
+          handleWatched={handleWatched}
         />
       ))}
     </div>
   );
 }
 
-function Season({ movie_i, season_i, movies, moviesLog }) {
+function Season({ season_i, movie, movieLog, handleWatched }) {
   return (
     <div className="episodes-container">
-      {Array(movies[movie_i].movie_info[season_i][1])
+      {Array(movie.season_episode_details[season_i][1])
         .fill(0)
         .map((i, index) => i + index)
         .map((item) => (
           <Episode
-            movie_i={movie_i}
             season_i={season_i}
             episode_i={item}
-            key={
-              +(
-                String(movies[movie_i].movie_id) +
-                String(season_i) +
-                String(item)
-              )
-            }
-            movies={movies}
-            moviesLog={moviesLog}
+            key={+(String(movie.movie_id) + String(season_i) + String(item))}
+            movie={movie}
+            movieLog={movieLog}
+            handleWatched={handleWatched}
           />
         ))}
-    </div>
-  );
-}
-
-function Episode({ movie_i, season_i, episode_i, movies, moviesLog }) {
-  function handleClick() {
-    console.log(moviesLog[movies[movie_i].movie_id]);
-  }
-
-  const movie_id = movies[movie_i].movie_id;
-  // console.log(movie_id);
-  // console.log(moviesLog);
-  const movie_log = moviesLog[movie_id];
-  // console.log(movie_log);
-  const watch_time_string = movie_log.filter(
-    ({ episode, season, watch_time }) =>
-      episode === episode_i && season === season_i
-  )[0]?.watch_time;
-
-  const watch_time = new Date(watch_time_string);
-  const month = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  return (
-    <div className="episode" onClick={handleClick}>
-      <div>
-        {Boolean(watch_time?.getDay()) && watch_time?.getDay()}
-        {month[watch_time?.getMonth()]}
-      </div>
-      <div>{episode_i + 1}</div>
     </div>
   );
 }
