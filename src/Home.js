@@ -55,6 +55,7 @@ export default function Home() {
       type: watched,
       payload: {
         movie_id,
+        season,
         episode,
         watch_time,
       },

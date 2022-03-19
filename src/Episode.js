@@ -70,7 +70,7 @@ export default function Episode({
   return (
     <div className="episode" onClick={handleClick}>
       <div>
-        {Boolean(watch_time?.getDay()) && watch_time?.getDay()}
+        {Boolean(watch_time?.getDate()) && watch_time?.getDate()}
         {month[watch_time?.getMonth()]}
       </div>
       <div>{episode_i + 1}</div>
