@@ -8,33 +8,35 @@ export default function MovieList({ state, handleWatched }) {
     movie_id,
   }));
 
-  const i = 2;
   return (
     <div className="movies-container">
-      <Movie
-        movie={movies[i]}
-        key={movies[i].movie_id}
-        movieLog={watchlist_log[movies[i].movie_id]}
-        handleWatched={handleWatched}
-      />
+      {movies.map((movie) => (
+        <Movie
+          movie={movie}
+          key={movie.movie_id}
+          movieLog={watchlist_log[movie.movie_id]}
+          handleWatched={handleWatched}
+        />
+      ))}
     </div>
   );
 }
 function Movie({ movie, movieLog, handleWatched }) {
   return (
-    <div className="seasons-container">
+    <>
       <h1>{movie.name}</h1>
-
-      {movie.season_episode_details.map((item) => (
-        <Season
-          season_i={item[0]}
-          movie={movie}
-          key={+(String(movie.movie_id) + String(item[0]))}
-          movieLog={movieLog}
-          handleWatched={handleWatched}
-        />
-      ))}
-    </div>
+      <div className="seasons-container">
+        {movie.season_episode_details.map((item) => (
+          <Season
+            season_i={item[0]}
+            movie={movie}
+            key={+(String(movie.movie_id) + String(item[0]))}
+            movieLog={movieLog}
+            handleWatched={handleWatched}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
