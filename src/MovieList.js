@@ -1,5 +1,6 @@
 import "./MovieList.css";
 import Episode from "./Episode";
+
 export default function MovieList({ state, handleWatched }) {
   const { watchlist, watchlist_log } = state;
   console.log(state);
@@ -24,8 +25,11 @@ export default function MovieList({ state, handleWatched }) {
 function Movie({ movie, movieLog, handleWatched }) {
   return (
     <>
-      <h1>{movie.name}</h1>
       <div className="seasons-container">
+        <div class="movie-sidebar">
+          <h1>{movie.name}</h1>
+        </div>
+
         {movie.season_episode_details.map((item) => (
           <Season
             season_i={item[0]}

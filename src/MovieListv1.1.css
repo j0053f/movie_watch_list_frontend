@@ -1,0 +1,30 @@
+.seasons-container{
+display: flex;
+flex-wrap: wrap;
+border:1px dashed black;
+margin:auto;
+}
+.episodes-container{
+    display:flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width :16em;   
+    margin: 2px;
+    border:1px solid black;
+}
+
+.episodes-container > div{
+    height: calc(16rem/4 - 2px);
+    width: calc(16rem/4 - 2px);
+    /* line-height: calc(16rem/4 - 2px); */
+    margin: 1px;    
+    background-color: blueviolet;
+    text-align: center;
+    
+    color:white;
+}
+
+.episode{
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,71 @@
+
+
+.aspect-ratio{
+
+    padding-top: 100%;
+    height: 0px;
+    position:relative; 
+    overflow: hidden;
+
+
+}
+
+
+.episode{
+    display:grid;
+    align-content:center;
+    justify-content:center;
+    grid-template-columns:1fr max-content 1fr;
+    grid-template-rows:1fr auto 1fr;
+
+
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+
+
+    font-size:1em;
+    cursor:pointer;
+  
+
+    background-color:blueviolet;
+
+    border:3px black solid;
+    
+}
+
+  .date{
+    grid-column:1/4;
+    grid-row:1;
+    font-size:0.2em;
+    text-align:center;
+    color:white;
+    align-self:center;
+    z-index:2;
+  }
+
+  .number{
+    color:white;
+    font-size:0.2em;
+    grid-column:2;
+    grid-row:2;
+    z-index:2;
+  }
+
+  .l2r-line{
+    width:inherit;
+    height:inherit;
+    grid-column:1/4;
+    grid-row:1/4;
+    background-image :linear-gradient(45deg,transparent, 45%, black 45%, 55%, transparent 55%, transparent);
+  }
+  
+  .r2l-line{
+    width:inherit;
+    height:inherit;
+    grid-column:1/4;
+    grid-row:1/4;
+    background-image :linear-gradient(calc(45deg + 90deg),transparent, 45%, black 45%, 55%, transparent 55%, transparent);
+  }

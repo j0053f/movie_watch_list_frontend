@@ -1,6 +1,7 @@
 import { AuthContext } from "./Auth/AuthProvider";
 import { useContext, useState, useEffect } from "react";
 
+import "./Episode.css";
 export default function Episode({
   season_i,
   episode_i,
@@ -68,12 +69,17 @@ export default function Episode({
   ];
 
   return (
-    <div className="episode" onClick={handleClick}>
-      <div>
-        {Boolean(watch_time?.getDate()) && watch_time?.getDate()}
-        {month[watch_time?.getMonth()]}
-      </div>
-      <div>{episode_i + 1}</div>
+    <div className="aspect-ratio">
+      <button className="episode" onClick={handleClick}>
+        <div className="date">
+          {Boolean(watch_time?.getDate()) && watch_time?.getDate()}
+          {month[watch_time?.getMonth()]}
+        </div>
+        <div className="number">{episode_i + 1}</div>
+
+        <div class="l2r-line "></div>
+        <div class="r2l-line "></div>
+      </button>
     </div>
   );
 }
