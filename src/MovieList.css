@@ -6,18 +6,31 @@
 .movies-container{
     min-width: 20rem;
     width:80%;
-    margin:auto;
+    margin:5px auto;
+}
+.movie-card{
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    margin-top:10px;
+}
+.movie-card::before{
+    content: "";
+    grid-column: 1/3;
+    height: 20px;
+    background-color: blueviolet;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.movie-sidebar{
+
 }
 .seasons-container{
     
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     gap:3px;
-    background-color: aquamarine;
     }
-.movie-sidebar {
-    grid-row:  1/99;
-}
+
     
 .episodes-container{
     font-size:5rem;
@@ -25,7 +38,8 @@
     grid-template-columns: repeat(auto-fit,minmax(4rem,1fr));
     gap:1px;
     grid-auto-rows: min-content;
-    border: 1px black solid;
+    border: 4px blueviolet solid;
+    padding:2px;
 
 }
 

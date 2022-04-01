@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
+import "./SignIn.css";
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthProvider";
@@ -46,8 +47,8 @@ export default function SignIn() {
     return;
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="signin-container">
+      <form class="signin-form" onSubmit={handleSubmit}>
         <label>
           username:
           <input

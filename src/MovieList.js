@@ -24,12 +24,11 @@ export default function MovieList({ state, handleWatched }) {
 }
 function Movie({ movie, movieLog, handleWatched }) {
   return (
-    <>
+    <div className="movie-card">
+      <div class="movie-sidebar">
+        <h1>{movie.name}</h1>
+      </div>
       <div className="seasons-container">
-        <div class="movie-sidebar">
-          <h1>{movie.name}</h1>
-        </div>
-
         {movie.season_episode_details.map((item) => (
           <Season
             season_i={item[0]}
@@ -40,7 +39,7 @@ function Movie({ movie, movieLog, handleWatched }) {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

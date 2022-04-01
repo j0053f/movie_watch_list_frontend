@@ -10,7 +10,9 @@ export default function Episode({
   handleWatched,
 }) {
   const { username, password } = useContext(AuthContext).credentials;
+
   const EMPTY = "UPDATE_FIELD_VALUE";
+  const WATCHED = "WATCHED";
   const PENDING = "PENDING";
   const SUCCESS = "SUCCESS";
   const ERROR = "ERROR";
@@ -22,11 +24,13 @@ export default function Episode({
       episode === episode_i && season === season_i
   )[0]?.watch_time;
 
-  const [status, setStatus] = useState(Boolean(watch_time_string));
+  const initial_state = Boolean(watch_time_string) ? WATCHED : EMPTY;
+  const [status, setStatus] = useState(initial_state);
 
   function handleClick() {
     console.log(movie.movie_id, season_i, episode_i);
-    if (!status) {
+    console.log(status);
+    if (status === EMPTY) {
       setStatus(PENDING);
     }
   }
@@ -48,6 +52,7 @@ export default function Episode({
         .then((response) => response.json())
         .then((data) => {
           handleWatched(movie.movie_id, season_i, episode_i, data.watch_time);
+          setStatus(WATCHED);
         });
     }
   }, [status]);
@@ -68,17 +73,34 @@ export default function Episode({
     "Dec",
   ];
 
+  // function styleWatched(classes) {
+  //   let date_classes = classes;
+  //   if (status === WATCHED) {
+  //     console.log(status);
+  //     date_classes.replace("hidden", "");
+  //     console.log(date_classes);
+  //   }
+  //   return date_classes;
+  // }
+
   return (
     <div className="aspect-ratio">
-      <button className="episode" onClick={handleClick}>
+      <button
+        className={status === WATCHED ? "episode watched" : "episode"}
+        onClick={handleClick}
+      >
         <div className="date">
           {Boolean(watch_time?.getDate()) && watch_time?.getDate()}
           {month[watch_time?.getMonth()]}
         </div>
         <div className="number">{episode_i + 1}</div>
 
-        <div class="l2r-line "></div>
-        <div class="r2l-line "></div>
+        {/* <div
+          className={status === WATCHED ? "l2r-line" : "l2r-line hidden"}
+        ></div>
+        <div
+          className={status === WATCHED ? "r2l-line" : "r2l-line hidden"}
+        ></div> */}
       </button>
     </div>
   );
