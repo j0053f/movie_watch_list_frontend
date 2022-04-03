@@ -1,15 +1,16 @@
 import "./Input.css";
 export default function Input({ labelText, ...propsRest }) {
+  const name = propsRest.name;
   return (
     <div className="form-field">
       <input
-        id="input-element"
+        id={name}
         spellCheck="false"
         autoComplete="off"
         placeholder=" "
         {...propsRest}
       />
-      <label htmlFor="input-element">
+      <label htmlFor={name}>
         <div className="label__text">{labelText}</div>
       </label>
     </div>
