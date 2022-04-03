@@ -59,7 +59,7 @@ export default function SignIn() {
           onChange={handleChange}
         />
 
-        <input
+        <Input
           labelText="password"
           type="password"
           name="password"
