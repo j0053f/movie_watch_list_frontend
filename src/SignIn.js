@@ -4,6 +4,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthProvider";
 
+import Input from "./components/Input";
+
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,26 +50,23 @@ export default function SignIn() {
   }
   return (
     <div className="signin-container">
-      <form class="signin-form" onSubmit={handleSubmit}>
-        <label>
-          username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={handleChange}
-          />
-        </label>
+      <form className="signin-form" onSubmit={handleSubmit}>
+        <Input
+          labelText="username"
+          type="text"
+          name="username"
+          value={username}
+          onChange={handleChange}
+        />
 
-        <label>
-          password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </label>
+        <input
+          labelText="password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        />
+
         <input type="submit" value="submit" />
       </form>
       {render_error(authError)}
