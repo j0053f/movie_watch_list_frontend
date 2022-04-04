@@ -15,27 +15,26 @@ function App() {
     <div>
       <AuthProvider>
         <Routes>
-          <Route path="/">
-            <Route path="signup" element={<SignUp />} />
-            <Route path="signin" element={<SignIn />} />
-            <Route path="movielist/about" element={<About />} />
-            <Route
-              path="home"
-              element={
-                <AuthRequired>
-                  <Home />
-                </AuthRequired>
-              }
-            />
-            <Route
-              path="addmovie"
-              element={
-                <AuthRequired>
-                  <FormAddMovie />
-                </AuthRequired>
-              }
-            />
-          </Route>
+          <Route
+            path="/"
+            element={
+              <AuthRequired>
+                <Home />
+              </AuthRequired>
+            }
+          />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/about" element={<About />} />
+
+          <Route
+            path="/addmovie"
+            element={
+              <AuthRequired>
+                <FormAddMovie />
+              </AuthRequired>
+            }
+          />
         </Routes>
       </AuthProvider>
     </div>

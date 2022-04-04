@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./Auth/AuthProvider";
 import { Link } from "react-router-dom";
-
+import Input from "./components/Input";
 export default function FormAddMovie() {
   const { username, password } = useContext(AuthContext).credentials;
 
@@ -50,27 +50,25 @@ export default function FormAddMovie() {
 
   return (
     <div>
-      <h1>hello {username}</h1>
-      <Link to="/home"> {"<-"}</Link>
+      <h1>{username}'s Movie list</h1>
+      <Link to="/home"> {"back to main page"}</Link>
       <form onSubmit={handleSubmit}>
-        <label>
-          movie name:
-          <input
-            type="text"
-            name="movieName"
-            value={movieName}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          number of season:
-          <input
-            type="number"
-            name="numSeason"
-            value={seasonEpisodeCount.length}
-            onChange={handleChange}
-          />
-        </label>
+        <Input
+          labelText="Movie name"
+          type="text"
+          name="movieName"
+          value={movieName}
+          onChange={handleChange}
+        />
+
+        <Input
+          labelText="Number of seasons"
+          type="number"
+          name="numSeason"
+          value={seasonEpisodeCount.length}
+          onChange={handleChange}
+        />
+
         <div>
           {seasonEpisodeCount.map((element, index) => (
             <Episode
@@ -95,15 +93,13 @@ function Episode({ index, _value, handleEpisodeCount }) {
   }
   return (
     <div>
-      <label>
-        {index + 1}:
-        <input
-          type="number"
-          name="numEpisode"
-          value={_value}
-          onChange={handleChange}
-        />
-      </label>
+      <Input
+        labelText={`Season ${index + 1} #Episodes`}
+        type="number"
+        name="numEpisode"
+        value={_value}
+        onChange={handleChange}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { AuthContext } from "./Auth/AuthProvider";
 import { useContext, useEffect, useReducer } from "react";
 import MovieList from "./MovieList";
+import { Link } from "react-router-dom";
 // action types
 const initial_fetch = "initial_fetch";
 const update_status = "update_status";
@@ -84,7 +85,8 @@ export default function Home() {
 
   return (
     <div>
-      <h1>this is home page</h1>
+      <h1>{username}'s Movie list</h1>
+      <Link to="/addmovie">Add movie</Link>
       {state.status === SUCCESS ? (
         <MovieList state={state} handleWatched={handleWatched} />
       ) : (

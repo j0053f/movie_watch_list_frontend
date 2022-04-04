@@ -17,7 +17,7 @@ export default function SignIn() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || "/home";
+  const from = location.state?.from?.pathname || "/";
   function handleChange(event) {
     const { target } = event;
 
@@ -51,6 +51,10 @@ export default function SignIn() {
   return (
     <div className="signin-container">
       <form className="signin-form" onSubmit={handleSubmit}>
+        <div className="description">
+          <div>Movie List</div>
+          <div>Sign in</div>
+        </div>
         <Input
           labelText="username"
           type="text"
@@ -67,7 +71,7 @@ export default function SignIn() {
           onChange={handleChange}
         />
 
-        <input type="submit" value="submit" />
+        <input className="button button--medium" type="submit" value="Enter" />
       </form>
       {render_error(authError)}
     </div>

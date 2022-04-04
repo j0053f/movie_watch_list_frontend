@@ -10,3 +10,40 @@ a{
 a:hover{
   color:#185abc;
 }
+
+.button{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blueviolet;
+  color:white;
+  padding:12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  border:1px solid transparent;
+}
+
+.button--medium{
+  color:blueviolet;
+  background-color: #fff;
+  border-color: #dadce0;
+}
+
+.button:hover:not(.button--medium){
+  background-color: hsl(271deg 76% 31%);
+  color:#fff;
+}
+.button:active:not(.button--medium){
+  background-color: hsl(271deg 76% 31%);
+  color:#fff;
+}
+.button--medium:hover{
+  background-color: #f1f3f4;
+  color: hsl(271deg 76% 31%);
+  border-color: blueviolet;
+
+}
+.button--medium:active{
+  background-color: hsl(271deg 76% 97%);
+  border-color: hsl(271deg 76% 31%);
+}
