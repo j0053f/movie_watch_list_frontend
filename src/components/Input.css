@@ -8,7 +8,7 @@
    
   }
   
-  .form-field input{
+  .form-field>input{
     font-size:1em;
     width:100%;
     height:100%;
@@ -20,7 +20,7 @@
     padding-left:.5em;
   }
   
-  .form-field label{
+  .form-field>label{
     position:absolute;
     left:0px;
     top:0px;
@@ -40,7 +40,7 @@
     
     transition-duration:300ms;
   }
-  .form-field label::after{
+  .form-field__label::after{
     content:"";
     display:inline-block;
     position:absolute;
@@ -52,17 +52,17 @@
     transition-duration:300ms;
    
   }
-  .form-field input:autofill ~label>.label__text{
+  .form-field input:autofill~label>.label__text{
     transform:translate(-30%,-50%) scale(.6);
   }
-  .form-field input:autofill ~label::after{
+  .form-field input:autofill~label::after{
     /* width:calc(100% - .65*(8/2)*1em); */
     width:60%;
   }
  
-  .form-field input:focus ~label>.label__text,
-  .form-field input:not(input:placeholder-shown) ~label>.label__text,
-  .form-field input:-webkit-autofill ~label>.label__text{
+  .form-field>input:focus ~label>.label__text,
+  .form-field>input:not(input:placeholder-shown) ~label>.label__text,
+  .form-field>input:-webkit-autofill~label>.label__text{
     transform:translate(-22%,-50%) scale(.65);
     color:blueviolet;
   }
@@ -74,6 +74,8 @@
   .form-field input:-webkit-autofill ~label::after{
     /* width:calc(100% - .65*(8/2)*1em); */
     width:60%;
+    /* --border-top-length : 20; */
+    /* width:calc(100% - var(--border-top-length) * .5em) */
   
   }
   .form-field input:focus ~label::after{

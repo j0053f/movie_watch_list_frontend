@@ -29,6 +29,12 @@ a:hover{
   border-color: #dadce0;
 }
 
+.inputs-container{
+  display: grid;
+  gap:1em;
+  justify-items:center;
+}
+
 .button:hover:not(.button--medium){
   background-color: hsl(271deg 76% 31%);
   color:#fff;

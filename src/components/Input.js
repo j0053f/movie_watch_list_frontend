@@ -10,7 +10,7 @@ export default function Input({ labelText, ...propsRest }) {
         placeholder=" "
         {...propsRest}
       />
-      <label htmlFor={name}>
+      <label className="form-field__label" htmlFor={name}>
         <div className="label__text">{labelText}</div>
       </label>
     </div>

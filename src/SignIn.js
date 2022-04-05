@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthProvider";
 
 import Input from "./components/Input";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -55,22 +56,28 @@ export default function SignIn() {
           <div>Movie List</div>
           <div>Sign in</div>
         </div>
-        <Input
-          labelText="username"
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleChange}
-        />
+        <div className="inputs-container">
+          <Input
+            labelText="username"
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleChange}
+          />
 
-        <Input
-          labelText="password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
+          <Input
+            stle={{ marginTop: "1em" }}
+            labelText="password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+        </div>
 
+        <Link className="button " to="/signup">
+          Create an account
+        </Link>
         <input className="button button--medium" type="submit" value="Enter" />
       </form>
       {render_error(authError)}

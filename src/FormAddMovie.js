@@ -51,10 +51,11 @@ export default function FormAddMovie() {
   return (
     <div>
       <h1>{username}'s Movie list</h1>
-      <Link to="/home"> {"back to main page"}</Link>
+      <Link to="/"> {"back to main page"}</Link>
       <form onSubmit={handleSubmit}>
         <Input
           labelText="Movie name"
+          style={{ ["--border-top-length"]: "Movie name".length }}
           type="text"
           name="movieName"
           value={movieName}
@@ -80,7 +81,7 @@ export default function FormAddMovie() {
           ))}
         </div>
 
-        <input type="submit" value="submit" />
+        <input className="button button--medium" type="submit" value="submit" />
       </form>
     </div>
   );
@@ -91,10 +92,12 @@ function Episode({ index, _value, handleEpisodeCount }) {
     const { target } = event;
     if (target.name === "numEpisode") handleEpisodeCount(+target.value);
   }
+  const labelText = `Season ${index + 1} #Episodes`;
+
   return (
-    <div>
+    <div style={{ marginTop: "1em" }}>
       <Input
-        labelText={`Season ${index + 1} #Episodes`}
+        labelText={labelText}
         type="number"
         name="numEpisode"
         value={_value}
