@@ -5,7 +5,10 @@
     position:relative;
     width:10em;
     height:2em;
-   
+    --top-border-length:50%;
+    --transform-translate-x:-22%;
+    --transform-translate-y:-50%;
+    --transform-scale:.65;
   }
   
   .form-field>input{
@@ -57,13 +60,16 @@
   }
   .form-field input:autofill~label::after{
     /* width:calc(100% - .65*(8/2)*1em); */
-    width:60%;
+    width:var(--top-border-length);
   }
  
   .form-field>input:focus ~label>.label__text,
   .form-field>input:not(input:placeholder-shown) ~label>.label__text,
   .form-field>input:-webkit-autofill~label>.label__text{
-    transform:translate(-22%,-50%) scale(.65);
+
+
+
+    transform:translate(var(--transform-translate-x),var(--transform-translate-y)) scale(var(--transform-scale));
     color:blueviolet;
   }
 
@@ -73,7 +79,7 @@
   .form-field input:not(input:placeholder-shown) ~label::after,
   .form-field input:-webkit-autofill ~label::after{
     /* width:calc(100% - .65*(8/2)*1em); */
-    width:60%;
+    width:var(--top-border-length);
     /* --border-top-length : 20; */
     /* width:calc(100% - var(--border-top-length) * .5em) */
   

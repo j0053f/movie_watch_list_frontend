@@ -82,8 +82,12 @@ export default function QueryMovies() {
         {Object.keys(details).map((season) => {
           return (
             <div className="details">
-              <div className="details__season center">{season}</div>
-              <div className="details__episode center">{details[season]}</div>
+              <Input
+                labelText={season}
+                type="number"
+                className="details__episode center"
+                value={details[season]}
+              />
             </div>
           );
         })}
