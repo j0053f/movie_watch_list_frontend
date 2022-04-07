@@ -12,22 +12,19 @@ export default function QueryMovies() {
   //loading data status
   const EMPTY = "EMPTY";
   const PENDING = "PENDING";
-  const SUCCESS = "SUCCESS";
+  const NOTFIND = "NOTFIND";
+  const FIND = "FIND";
 
   const [dataLoadingStatus, setDataLoadingStatus] = useState(EMPTY);
   const movie_name = searchParams.get("movie_name") || "";
 
-  if (movie_name.length >= 3 && dataLoadingStatus === EMPTY) {
-    setDataLoadingStatus(PENDING);
-  } else if (movie_name.length < 3 && dataLoadingStatus !== EMPTY) {
-    setDataLoadingStatus(EMPTY);
-  }
-
   const handleChange = (event) => {
     const movie_name = event.target.value;
     if (movie_name) {
+      setDataLoadingStatus(PENDING);
       setSearchParams({ movie_name });
     } else {
+      setDataLoadingStatus(EMPTY);
       setSearchParams({});
     }
   };
@@ -44,8 +41,14 @@ export default function QueryMovies() {
       })
         .then((data) => data.json())
         .then((movies) => {
+          console.log("then(movies)", movies);
           setMovies(movies);
-          setDataLoadingStatus(EMPTY);
+          if (Object.keys(movies).length === 0) {
+            setDataLoadingStatus(NOTFIND);
+          } else {
+            setDataLoadingStatus(FIND);
+          }
+
           console.log(movies);
         });
     }
@@ -65,10 +68,10 @@ export default function QueryMovies() {
               {render_movie_details(
                 movies[movie_name]["season_episode_details"]
               )}
-              <button class="button">
+              <button className="button">
                 add to
                 <br />
-                watch list
+                watchlist
               </button>
             </div>
           );
@@ -87,10 +90,36 @@ export default function QueryMovies() {
                 type="number"
                 className="details__episode center"
                 value={details[season]}
+                disabled
               />
             </div>
           );
         })}
+      </div>
+    );
+  }
+
+  const [numberOfSeasons, setNumberOfSeasons] = useState(0);
+  function render_movie() {
+    function handleChange(event) {
+      setNumberOfSeasons(+event.target.value);
+    }
+    return (
+      <div className="movie">
+        <Input
+          labelText="#seasons"
+          type="number"
+          value={numberOfSeasons}
+          onChange={handleChange}
+        />
+        {Array(numberOfSeasons)
+          .fill(0)
+          .map((_, index) => 0 + index)
+          .map((season) => (
+            <div className="details">
+              <Input labelText={season + 1} type="number" />
+            </div>
+          ))}
       </div>
     );
   }
@@ -104,6 +133,14 @@ export default function QueryMovies() {
         />
       </div>
       <div>{render_movies()}</div>
+      <div>
+        {dataLoadingStatus === NOTFIND && (
+          <div style={{ color: "red" }}>
+            not find, please complete movie name and required information
+            <div>{render_movie()}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
