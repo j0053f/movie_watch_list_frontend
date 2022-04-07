@@ -1,0 +1,35 @@
+.query-movies-wrapper__input{
+    padding:0 auto;
+}
+.movie{
+    display: inline-flex;
+
+   
+}
+.movie__name{
+    width:min-content;
+    color:white;
+    background-color: blueviolet;
+}
+.movie-details-wrapper{
+    padding:5px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 4px blueviolet solid;
+    border-right: none;
+}
+.details{
+    display:flex;
+    flex-direction: column;
+    border:1px solid blueviolet;
+    border-radius: 8px;
+    margin:2.5px;
+}
+
+
+
+.center{
+    display: grid;
+    place-content: center;
+    padding:5px;
+}

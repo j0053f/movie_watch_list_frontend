@@ -2,6 +2,7 @@ import "./App.css";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import Home from "./Home";
+import QueryMovies from "./components/QueryMovies";
 import React, { useState } from "react";
 
 import { Route, Routes, Link } from "react-router-dom";
@@ -26,6 +27,14 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/about" element={<About />} />
+          <Route
+            path="/movies"
+            element={
+              <AuthRequired>
+                <QueryMovies />
+              </AuthRequired>
+            }
+          />
 
           <Route
             path="/addmovie"
