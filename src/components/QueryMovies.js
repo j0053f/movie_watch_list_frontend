@@ -48,27 +48,25 @@ export default function QueryMovies() {
           } else {
             setDataLoadingStatus(FIND);
           }
-
-          console.log(movies);
         });
     }
   }, [dataLoadingStatus]);
 
   function render_movies() {
     return (
-      <div>
+      <div className="center">
         {Object.keys(movies).map((movie_name) => {
           return (
-            <div
-              className="movie"
-              onClick={() => console.log(movies[movie_name])}
-            >
+            <div className="movie">
               <div className="movie__name center">{movie_name}</div>
 
               {render_movie_details(
                 movies[movie_name]["season_episode_details"]
               )}
-              <button className="button">
+              <button
+                className="button"
+                onClick={() => console.log(movies[movie_name])}
+              >
                 add to
                 <br />
                 watchlist
@@ -99,27 +97,49 @@ export default function QueryMovies() {
     );
   }
 
-  const [numberOfSeasons, setNumberOfSeasons] = useState(0);
+  const [seasonEpisode, setSeasonEpisode] = useState(Array(0));
   function render_movie() {
     function handleChange(event) {
-      setNumberOfSeasons(+event.target.value);
+      if (event.target.name === "name") {
+        setSeasonEpisode(Array(+event.target.value).fill(0));
+      }
+    }
+    function handleEpisodeChange(event, season) {
+      const copySeasonEpisode = seasonEpisode.slice();
+      copySeasonEpisode[season] = +event.target.value;
+      setSeasonEpisode(copySeasonEpisode);
     }
     return (
-      <div className="movie">
-        <Input
-          labelText="#seasons"
-          type="number"
-          value={numberOfSeasons}
-          onChange={handleChange}
-        />
-        {Array(numberOfSeasons)
-          .fill(0)
-          .map((_, index) => 0 + index)
-          .map((season) => (
+      <div style={{ margin: "0 auto", width: "min-content" }}>
+        <div style={{ color: "red", marginBottom: "1em" }}>
+          not find, please complete movie name and required information
+        </div>
+        <div className="movie">
+          <Input
+            name="name"
+            labelText="#seasons"
+            type="number"
+            value={Object.keys(seasonEpisode).length}
+            onChange={handleChange}
+          />
+
+          {seasonEpisode.map((_, season) => (
             <div className="details">
-              <Input labelText={season + 1} type="number" />
+              <Input
+                name="episode"
+                labelText={season + 1}
+                type="number"
+                value={seasonEpisode[season]}
+                onChange={(e) => handleEpisodeChange(e, season)}
+              />
             </div>
           ))}
+          <button className="button" onClick={() => console.log(seasonEpisode)}>
+            add to
+            <br />
+            watchlist
+          </button>
+        </div>
       </div>
     );
   }
@@ -133,14 +153,7 @@ export default function QueryMovies() {
         />
       </div>
       <div>{render_movies()}</div>
-      <div>
-        {dataLoadingStatus === NOTFIND && (
-          <div style={{ color: "red" }}>
-            not find, please complete movie name and required information
-            <div>{render_movie()}</div>
-          </div>
-        )}
-      </div>
+      <div>{dataLoadingStatus === NOTFIND && <div>{render_movie()}</div>}</div>
     </div>
   );
 }
