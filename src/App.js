@@ -35,15 +35,6 @@ function App() {
               </AuthRequired>
             }
           />
-
-          <Route
-            path="/addmovie"
-            element={
-              <AuthRequired>
-                <FormAddMovie />
-              </AuthRequired>
-            }
-          />
         </Routes>
       </AuthProvider>
     </div>

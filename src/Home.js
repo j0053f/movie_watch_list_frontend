@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <div>
       <h1>{username}'s Movie list</h1>
-      <Link to="/addmovie">Add movie</Link>
+      <Link to="/movies">Add movie</Link>
       {state.status === SUCCESS ? (
         <MovieList state={state} handleWatched={handleWatched} />
       ) : (

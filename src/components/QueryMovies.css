@@ -14,12 +14,15 @@
     margin-top: 3em;
 }
 .movie{
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: min-content;
+    margin:1em;
 
    
 }
+.movies__wrapper{
+    display: flex;
+}
+
 .movie__name{
     min-width:min-content;
     color:white;
@@ -28,10 +31,13 @@
 }
 .movie-details-wrapper{
     padding:5px;
-    display: flex;
-    flex-wrap: wrap;
-    border: 4px blueviolet solid;
-    border-right: none;
+    display: grid;
+    grid-template-columns: repeat(4,3em);
+    border: 2px blueviolet solid;
+    border-radius: 4px;
+    margin-top:3px;
+    margin-bottom: 3px;
+
 }
 .details{
     display:flex;

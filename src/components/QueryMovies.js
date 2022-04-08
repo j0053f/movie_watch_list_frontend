@@ -1,6 +1,6 @@
 import "./QueryMovies.css";
 import Input from "./Input";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../Auth/AuthProvider";
@@ -9,15 +9,23 @@ export default function QueryMovies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { username, password } = useContext(AuthContext).credentials;
   const [movies, setMovies] = useState({});
+  const [movieId, setMovieId] = useState("");
   //loading data status
   const EMPTY = "EMPTY";
   const PENDING = "PENDING";
   const NOTFIND = "NOTFIND";
   const FIND = "FIND";
 
+  const SUBMITtoserver = "SUBMITTOSERVER";
+  const SUBMITEDtoserver = "SUBMITEDtoserver";
+
+  const SUBMITtoserver2 = "SUBMITTOSERVER2";
+  const SUBMITEDtoserver2 = "SUBMITEDtoserver2";
+
   const [dataLoadingStatus, setDataLoadingStatus] = useState(EMPTY);
   const movie_name = searchParams.get("movie_name") || "";
 
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const movie_name = event.target.value;
     if (movie_name) {
@@ -28,6 +36,44 @@ export default function QueryMovies() {
       setSearchParams({});
     }
   };
+  useEffect(() => {
+    if (dataLoadingStatus === SUBMITtoserver) {
+      fetch("/api/movielist/v1.1/addmovie", {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${window.btoa(`${username}:${password}`)}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          details: seasonEpisode,
+          name: movie_name,
+        }),
+      }).then((response) => {
+        console.log(response);
+        setDataLoadingStatus(SUBMITEDtoserver);
+        navigate("/");
+      });
+    }
+  }, [dataLoadingStatus]);
+
+  useEffect(() => {
+    if (dataLoadingStatus === SUBMITtoserver2) {
+      fetch("/api/movielist/v1.1/addmovie", {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${window.btoa(`${username}:${password}`)}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          movie_id: movieId,
+        }),
+      }).then((response) => {
+        console.log(response);
+        setDataLoadingStatus(SUBMITEDtoserver2);
+        navigate("/");
+      });
+    }
+  }, [dataLoadingStatus]);
   useEffect(() => {
     console.log("useEffect executed:", dataLoadingStatus);
     if (dataLoadingStatus === PENDING) {
@@ -54,7 +100,7 @@ export default function QueryMovies() {
 
   function render_movies() {
     return (
-      <div className="center">
+      <div className="movies__wrapper">
         {Object.keys(movies).map((movie_name) => {
           return (
             <div className="movie">
@@ -64,8 +110,12 @@ export default function QueryMovies() {
                 movies[movie_name]["season_episode_details"]
               )}
               <button
-                className="button"
-                onClick={() => console.log(movies[movie_name])}
+                className="button button--medium"
+                onClick={() => {
+                  setMovieId(movies[movie_name].movie_id);
+                  console.log(movies[movie_name].movie_id);
+                  setDataLoadingStatus(SUBMITtoserver2);
+                }}
               >
                 add to
                 <br />
@@ -114,7 +164,7 @@ export default function QueryMovies() {
         <div style={{ color: "red", marginBottom: "1em" }}>
           not find, please complete movie name and required information
         </div>
-        <div className="movie">
+        <div>
           <Input
             name="name"
             labelText="#seasons"
@@ -122,19 +172,26 @@ export default function QueryMovies() {
             value={Object.keys(seasonEpisode).length}
             onChange={handleChange}
           />
-
-          {seasonEpisode.map((_, season) => (
-            <div className="details">
-              <Input
-                name="episode"
-                labelText={season + 1}
-                type="number"
-                value={seasonEpisode[season]}
-                onChange={(e) => handleEpisodeChange(e, season)}
-              />
-            </div>
-          ))}
-          <button className="button" onClick={() => console.log(seasonEpisode)}>
+          <div className="movie-details-wrapper">
+            {seasonEpisode.map((_, season) => (
+              <div className="details">
+                <Input
+                  name="episode"
+                  labelText={season + 1}
+                  type="number"
+                  value={seasonEpisode[season]}
+                  onChange={(e) => handleEpisodeChange(e, season)}
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            className="button button--medium"
+            onClick={() => {
+              console.log(seasonEpisode);
+              setDataLoadingStatus(SUBMITtoserver);
+            }}
+          >
             add to
             <br />
             watchlist
