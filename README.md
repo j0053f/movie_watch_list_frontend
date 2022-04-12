@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+are you stop continuing to watch your favorite movie because of forgetting what was the last episode that you watched?
+in this app create a list of movies and track your watched movies by date.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+for example as you see for first season of game of throns episode 1 and 2 and 3 marked as watched in 12 april.
 
-## Available Scripts
+![each season episode count](./README__pics/season_episode_list__400__width.png)
 
-In the project directory, you can run:
+in the case of adding new movie to your watchlist, if movie previouslly added by other user you will see it, but if it's not in the database your must enter the No. seasons and each season's episode count. (as shown bellow)
 
-### `npm start`
+![movie isn't in db](./README__pics/movie_isnt_in_db.png)
+![movie is in db](./README__pics/movie_is_in_db.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# notes
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. see project's backend repository [here](https://github.com/j0053f/movie_watch_list_backend)
+2. the project is live [here](http://141.11.246.192/)
 
-### `npm test`
+# the tasks must be done:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`the list gradually updates`
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] move state of app to redux
+- [ ] show loading signs when something is loading
+- [ ] dialog box to show server success and failer massages
