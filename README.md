@@ -7,7 +7,12 @@ for example as you see for first season of game of throns episode 1 and 2 and 3 
 
 in the case of adding new movie to your watchlist, if movie previouslly added by other user you will see it, but if it's not in the database your must enter the No. seasons and each season's episode count. (as shown bellow)
 
+if the movie exists in db:
+
 ![movie isn't in db](./README__pics/movie_isnt_in_db.png)
+
+if the movie isn't in db:
+
 ![movie is in db](./README__pics/movie_is_in_db.png)
 
 # notes
