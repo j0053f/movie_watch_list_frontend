@@ -11,9 +11,12 @@ import About from "./About";
 import AuthProvider from "./Auth/AuthProvider";
 import AuthRequired from "./Auth/AuthRequired";
 
+import Test from "./test";
+
 function App() {
   return (
     <div>
+      <Test />
       <AuthProvider>
         <Routes>
           <Route
